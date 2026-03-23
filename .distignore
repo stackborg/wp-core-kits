@@ -1,0 +1,29 @@
+# Distribution ignore — files excluded from published package
+# Used by deployment scripts and build tools
+
+# Development files
+.git/
+.github/
+.vscode/
+.idea/
+.phpunit.cache/
+node_modules/
+
+# Tests
+tests/
+phpunit.xml
+phpstan.neon
+
+# Development configs
+.editorconfig
+.eslintrc*
+.prettierrc*
+
+# Documentation (source only)
+DEVELOPER_GUIDE.md
+SECURITY.md
+
+# Build artifacts
+.phpunit.result.cache
+composer.lock
+*.log

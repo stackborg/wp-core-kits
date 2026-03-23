@@ -1,0 +1,16 @@
+parameters:
+    level: 6
+    paths:
+        - src
+    bootstrapFiles:
+        - phpstan-bootstrap.php
+    ignoreErrors:
+        # WordPress functions — not available during standalone analysis
+        - '#Function [a-zA-Z_]+ not found\.#'
+        # WordPress classes — not available during standalone analysis
+        - '#.*(WP_REST_Request|WP_REST_Response|WP_REST_Server|WP_Error|wpdb).*#'
+        # Traits are consumed by external plugins, not within this package
+        - '#Trait .* is used zero times and is not analysed\.#'
+        # VersionResolver: ternary guards are intentional defensive programming
+        - message: '#Right side of && is always false\.#'
+          path: src/Addon/VersionResolver.php
