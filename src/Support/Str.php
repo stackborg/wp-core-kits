@@ -1,4 +1,5 @@
 <?php
+
 /**
  * String utility helpers.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WordPress Options abstraction.
  *

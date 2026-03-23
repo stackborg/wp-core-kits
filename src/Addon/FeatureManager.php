@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FeatureManager - single-line feature access control.
  *
@@ -24,7 +25,8 @@ class FeatureManager
     public function __construct(
         private readonly AddonRegistry $registry,
         private readonly LicenseManager $licenseManager,
-    ) {}
+    ) {
+    }
 
     /**
      * Check if a specific addon feature is accessible.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonUpdater - checks for and applies addon updates.
  *
@@ -20,7 +21,8 @@ class AddonUpdater
     public function __construct(
         private readonly AddonRegistry $registry,
         private readonly AddonInstaller $installer,
-    ) {}
+    ) {
+    }
 
     /**
      * Check which installed addons have updates available.
@@ -121,8 +123,12 @@ class AddonUpdater
     /**
      * Get pending updates separated into auto-eligible and confirmation-needed.
      *
-     * @param array<string, array{version: string, download_url: string, checksum?: string, update_policy?: string}> $catalog
-     * @return array{auto: array<string, array{current: string, available: string, download_url: string}>, manual: array<string, array{current: string, available: string, download_url: string}>}
+     * @param array<string, array{version: string, download_url: string,
+     *        checksum?: string, update_policy?: string}> $catalog
+     * @return array{auto: array<string, array{current: string,
+     *         available: string, download_url: string}>,
+     *         manual: array<string, array{current: string,
+     *         available: string, download_url: string}>}
      */
     public function getPendingUpdates(array $catalog): array
     {
@@ -147,7 +153,8 @@ class AddonUpdater
     /**
      * Batch update all auto-eligible addons.
      *
-     * @param array<string, array{version: string, download_url: string, checksum?: string, update_policy?: string}> $catalog
+     * @param array<string, array{version: string, download_url: string,
+     *        checksum?: string, update_policy?: string}> $catalog
      * @return array<string, InstallResult>
      */
     public function batchUpdate(array $catalog): array

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonServiceProvider - base class for addon feature providers.
  *

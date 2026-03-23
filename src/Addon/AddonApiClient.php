@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonApiClient - Stackborg API communication layer.
  *
@@ -22,7 +23,8 @@ class AddonApiClient
     public function __construct(
         private readonly string $baseUrl,
         private readonly string $pluginSlug,
-    ) {}
+    ) {
+    }
 
     /**
      * Fetch available addons catalog from API.

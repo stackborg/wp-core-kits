@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User capabilities and identity wrapper.
  *

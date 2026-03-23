@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Array utility helpers.
  *

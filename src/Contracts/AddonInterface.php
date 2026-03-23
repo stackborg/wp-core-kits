@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonInterface - contract for all addon modules.
  *

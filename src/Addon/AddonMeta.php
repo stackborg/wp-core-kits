@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonMeta - reads and validates addon.json metadata.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Typed $wpdb wrapper with auto table prefix.
  *

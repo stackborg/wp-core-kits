@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LicenseResult - outcome of a license operation.
  *
@@ -20,7 +21,8 @@ class LicenseResult
         public readonly string $message,
         public readonly ?string $expiry = null,
         public readonly ?string $siteUrl = null,
-    ) {}
+    ) {
+    }
 
     public static function active(string $expiry, string $siteUrl): self
     {

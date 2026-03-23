@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CompatResult - result of a version compatibility check.
  *
@@ -25,5 +26,6 @@ class CompatResult
         public readonly bool $compatible,
         public readonly array $errors = [],
         public readonly array $warnings = [],
-    ) {}
+    ) {
+    }
 }

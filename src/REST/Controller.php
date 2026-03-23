@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base REST Controller for plugin endpoints.
  *

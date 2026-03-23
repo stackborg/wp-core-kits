@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonInstaller - downloads, verifies, and installs addon modules.
  *
@@ -29,7 +30,8 @@ class AddonInstaller
         private readonly string $coreVersion,
         private readonly string $uiVersion,
         private readonly ?string $pluginVersion = null,
-    ) {}
+    ) {
+    }
 
     /**
      * Install an addon from a remote zip URL.

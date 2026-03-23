@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Thread-safe Singleton pattern.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LicenseManager - secure license lifecycle management.
  *
@@ -38,7 +39,8 @@ class LicenseManager
     public function __construct(
         private readonly string $optionPrefix,
         private readonly string $verifyKey,
-    ) {}
+    ) {
+    }
 
     /**
      * Activate a license for an addon.

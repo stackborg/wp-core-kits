@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonRegistry - discovers, tracks, and manages addon lifecycle.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * VersionResolver - SemVer parsing and constraint matching.
  *
@@ -54,8 +55,12 @@ class VersionResolver
         [$aMaj, $aMin, $aPat] = self::parse($a);
         [$bMaj, $bMin, $bPat] = self::parse($b);
 
-        if ($aMaj !== $bMaj) return $aMaj <=> $bMaj;
-        if ($aMin !== $bMin) return $aMin <=> $bMin;
+        if ($aMaj !== $bMaj) {
+            return $aMaj <=> $bMaj;
+        }
+        if ($aMin !== $bMin) {
+            return $aMin <=> $bMin;
+        }
         return $aPat <=> $bPat;
     }
 

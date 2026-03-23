@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Centralized sanitization and escaping.
  *

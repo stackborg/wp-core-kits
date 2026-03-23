@@ -1,4 +1,5 @@
 <?php
+
 /**
  * WordPress Options wrapper with internal caching.
  *

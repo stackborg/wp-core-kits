@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonRemover - deactivates, cleans up, and removes an addon.
  *
@@ -25,7 +26,8 @@ class AddonRemover
     public function __construct(
         private readonly AddonRegistry $registry,
         private readonly string $addonsDir,
-    ) {}
+    ) {
+    }
 
     /**
      * Fully remove an addon — deactivate, cleanup, delete files.

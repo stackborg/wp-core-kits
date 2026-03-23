@@ -1,4 +1,5 @@
 <?php
+
 /**
  * HasAddons - opt-in trait for plugins that support addons.
  *

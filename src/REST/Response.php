@@ -1,4 +1,5 @@
 <?php
+
 /**
  * REST Response helpers.
  *

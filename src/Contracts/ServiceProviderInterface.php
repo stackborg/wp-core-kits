@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Service Provider contract for plugin modules.
  *

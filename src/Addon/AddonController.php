@@ -1,4 +1,5 @@
 <?php
+
 /**
  * AddonController - REST API endpoints for addon management.
  *
@@ -34,7 +35,8 @@ class AddonController extends Controller
         private readonly string $coreVersion = '1.0.0',
         private readonly string $uiVersion = '1.0.0',
         private readonly ?AddonApiClient $apiClient = null,
-    ) {}
+    ) {
+    }
 
     public function routes(): void
     {

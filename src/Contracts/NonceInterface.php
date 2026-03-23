@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nonce (CSRF protection) abstraction.
  *

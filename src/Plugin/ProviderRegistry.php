@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Provider Registry - manages plugin service providers.
  *

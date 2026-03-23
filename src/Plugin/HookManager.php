@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bulk hook registration helper.
  *

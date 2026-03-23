@@ -1,4 +1,5 @@
 <?php
+
 /**
  * LicenseGuard - cryptographic security layer for license protection.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Asset management abstraction.
  *

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * InstallResult - outcome of an addon install/update operation.
  *
@@ -22,7 +23,8 @@ class InstallResult
         public readonly string $message,
         public readonly ?AddonMeta $meta = null,
         public readonly array $errors = [],
-    ) {}
+    ) {
+    }
 
     public static function ok(string $message, ?AddonMeta $meta = null): self
     {
