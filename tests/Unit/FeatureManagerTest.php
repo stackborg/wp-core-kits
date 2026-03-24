@@ -42,6 +42,7 @@ class FeatureManagerTest extends TestCase
             public function providers(): array { return []; }
             public function requires(): array { return []; }
             public function description(): string { return ''; }
+            public function tables(): array { return []; }
             public function cleanup(): void {}
         };
     }

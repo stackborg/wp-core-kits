@@ -37,6 +37,7 @@ class AddonRegistryEdgeTest extends TestCase
             public function providers(): array { return []; }
             public function requires(): array { return ['core' => '>=1.0.0']; }
             public function description(): string { return 'A test addon'; }
+            public function tables(): array { return []; }
             public function cleanup(): void {}
         };
     }

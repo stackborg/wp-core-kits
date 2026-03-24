@@ -85,6 +85,7 @@ class AddonControllerTest extends TestCase
             public function providers(): array { return []; }
             public function requires(): array { return []; }
             public function description(): string { return 'Test addon'; }
+            public function tables(): array { return []; }
             public function cleanup(): void {}
         };
     }
