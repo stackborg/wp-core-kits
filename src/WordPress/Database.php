@@ -56,7 +56,7 @@ class Database implements DatabaseInterface
     /**
      * @return array<string, mixed>|null
      */
-    public static function getRow(string $query, mixed ...$args): object|array|null
+    public static function getRow(string $query, mixed ...$args): ?array
     {
         $prepared = empty($args) ? $query : self::wpdb()->prepare($query, ...$args);
         return self::wpdb()->get_row($prepared, ARRAY_A);

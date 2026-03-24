@@ -1,7 +1,7 @@
 {
     "name": "stackborg/wp-core-kits",
     "description": "WordPress Plugin Foundation — abstraction layer for building scalable, maintainable WordPress plugins. Provides typed wrappers for WP APIs, DI container, REST infrastructure, and plugin architecture primitives.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "library",
     "license": "MIT",
     "authors": [

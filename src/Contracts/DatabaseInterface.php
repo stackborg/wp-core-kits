@@ -36,7 +36,7 @@ interface DatabaseInterface
      *
      * @return array<string, mixed>|null
      */
-    public static function getRow(string $query, mixed ...$args): object|array|null;
+    public static function getRow(string $query, mixed ...$args): ?array;
 
     /**
      * Insert a row into a table.

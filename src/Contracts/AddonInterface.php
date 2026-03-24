@@ -84,6 +84,20 @@ interface AddonInterface
     public function description(): string;
 
     /**
+     * Database table names this addon creates (without WP prefix).
+     *
+     * Used by OrphanTableDetector to distinguish addon tables from orphans:
+     * - Active addon tables are protected (not shown as orphans)
+     * - Inactive addon tables are shown as orphans for cleanup
+     *
+     * Example:
+     *   return ['sb_resetpress_collections', 'sb_resetpress_presets'];
+     *
+     * @return string[] Table names without WP prefix
+     */
+    public function tables(): array;
+
+    /**
      * Cleanup hook — called before addon files are deleted.
      * Use this to remove addon-specific DB tables, options, transients.
      */
