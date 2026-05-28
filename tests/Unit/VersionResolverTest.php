@@ -50,6 +50,12 @@ class VersionResolverTest extends TestCase
         VersionResolver::parse('5');
     }
 
+    public function testParseRejectsInvalidSuffix(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        VersionResolver::parse('1.2.3foo');
+    }
+
     // ─── Compare ────────────────────────────────────────
 
     public function testCompareEqual(): void

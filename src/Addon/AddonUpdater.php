@@ -87,6 +87,11 @@ class AddonUpdater
         // Install overwrites existing
         $result = $this->installer->install($zipUrl, $checksum, $licenseKey);
 
+        if ($result->success && $result->meta !== null) {
+            // Persist updated version so update checks do not loop forever.
+            $this->registry->setVersion($slug, $result->meta->version);
+        }
+
         // Re-activate if it was active before
         if ($result->success && $wasActive) {
             $this->registry->activate($slug);

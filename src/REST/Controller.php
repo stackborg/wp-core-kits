@@ -50,6 +50,10 @@ abstract class Controller
      */
     public function register(): void
     {
+        if ($this->namespace === '') {
+            throw new \LogicException('REST controller namespace must be defined by subclass.');
+        }
+
         // Collect route definitions
         $this->routes();
 

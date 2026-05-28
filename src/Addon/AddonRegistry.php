@@ -146,6 +146,21 @@ class AddonRegistry
     }
 
     /**
+     * Update the persisted version of an installed addon.
+     */
+    public function setVersion(string $slug, string $version): bool
+    {
+        if (!$this->isInstalled($slug)) {
+            return false;
+        }
+
+        $this->state[$slug]['version'] = $version;
+        $this->saveState();
+
+        return true;
+    }
+
+    /**
      * Remove an addon from the registry (called after files are deleted).
      */
     public function remove(string $slug): void

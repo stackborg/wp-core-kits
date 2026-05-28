@@ -37,8 +37,8 @@ class VersionResolver
             $version .= '.0';
         }
 
-        // Match major.minor.patch (ignore pre-release/build metadata)
-        if (!preg_match('/^(\d+)\.(\d+)\.(\d+)/', $version, $matches)) {
+        // Match strict major.minor.patch with optional pre-release/build metadata.
+        if (!preg_match('/^(\d+)\.(\d+)\.(\d+)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/', $version, $matches)) {
             throw new \InvalidArgumentException("Invalid SemVer: {$version}");
         }
 

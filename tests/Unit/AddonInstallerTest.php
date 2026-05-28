@@ -204,7 +204,7 @@ class AddonInstallerTest extends TestCase
         $installer = new AddonInstaller($registry, $this->addonsDir, '1.0.0', '1.0.0');
         $installer->installFromZip($zipPath);
 
-        $updater = new AddonUpdater($registry, $installer, $this->addonsDir);
+        $updater = new AddonUpdater($registry, $installer);
         $updates = $updater->checkUpdates([
             'updatable' => ['version' => '2.0.0', 'download_url' => 'https://x.com/v2.zip'],
         ]);
@@ -221,7 +221,7 @@ class AddonInstallerTest extends TestCase
         $installer = new AddonInstaller($registry, $this->addonsDir, '1.0.0', '1.0.0');
         $installer->installFromZip($zipPath);
 
-        $updater = new AddonUpdater($registry, $installer, $this->addonsDir);
+        $updater = new AddonUpdater($registry, $installer);
         $updates = $updater->checkUpdates([
             'current' => ['version' => '2.0.0', 'download_url' => 'https://x.com/v2.zip'],
         ]);
@@ -234,7 +234,7 @@ class AddonInstallerTest extends TestCase
         $registry = new AddonRegistry('test_state');
         $installer = new AddonInstaller($registry, $this->addonsDir, '1.0.0', '1.0.0');
 
-        $updater = new AddonUpdater($registry, $installer, $this->addonsDir);
+        $updater = new AddonUpdater($registry, $installer);
         $updates = $updater->checkUpdates([
             'unknown' => ['version' => '1.0.0', 'download_url' => 'https://x.com'],
         ]);
@@ -246,7 +246,7 @@ class AddonInstallerTest extends TestCase
     {
         $registry = new AddonRegistry('test_state');
         $installer = new AddonInstaller($registry, $this->addonsDir, '1.0.0', '1.0.0');
-        $updater = new AddonUpdater($registry, $installer, $this->addonsDir);
+        $updater = new AddonUpdater($registry, $installer);
 
         $result = $updater->update('ghost', 'https://x.com/ghost.zip');
         $this->assertFalse($result->success);

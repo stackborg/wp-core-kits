@@ -39,7 +39,7 @@ class AddonControllerTest extends TestCase
         $this->registry = new AddonRegistry('ctrl_test_state');
         $this->installer = new AddonInstaller($this->registry, $this->addonsDir, '1.0.0', '1.0.0');
         $this->remover = new AddonRemover($this->registry, $this->addonsDir);
-        $this->updater = new AddonUpdater($this->registry, $this->installer, $this->addonsDir);
+        $this->updater = new AddonUpdater($this->registry, $this->installer);
         $this->licenseManager = new LicenseManager('ctrl_test', $this->verifyKey);
         $this->featureManager = new FeatureManager($this->registry, $this->licenseManager);
 
