@@ -44,7 +44,9 @@ namespace Stackborg\WPCoreKits\Plugin;
 
 use Stackborg\WPCoreKits\WordPress\Asset;
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 trait AdminDashboardTrait
 {
@@ -183,28 +185,56 @@ trait AdminDashboardTrait
 
         return <<<HTML
         <div id="{$slug}-root">
-          <div style="display:flex;align-items:center;justify-content:center;min-height:100vh;background:{$bg};font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+          <div style="display:flex;align-items:center;justify-content:center;
+            min-height:100vh;background:{$bg};
+            font-family:Inter,-apple-system,BlinkMacSystemFont,
+            'Segoe UI',Roboto,sans-serif">
             <div style="text-align:center">
-              <div style="position:relative;width:80px;height:80px;margin:0 auto 24px">
-                <div style="position:absolute;inset:0;border-radius:50%;background:{$grad};animation:{$prefix}Float 2s ease-in-out infinite"></div>
-                <div style="position:absolute;inset:8px;border-radius:50%;border:3px solid transparent;border-top-color:#fff;animation:{$prefix}Orbit 1s linear infinite"></div>
-                <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.3) 0%,transparent 70%);animation:{$prefix}Glow 2s ease-in-out infinite"></div>
+              <div style="position:relative;width:80px;
+                height:80px;margin:0 auto 24px">
+                <div style="position:absolute;inset:0;border-radius:50%;
+                  background:{$grad};
+                  animation:{$prefix}Float 2s ease-in-out infinite"></div>
+                <div style="position:absolute;inset:8px;border-radius:50%;
+                  border:3px solid transparent;border-top-color:#fff;
+                  animation:{$prefix}Orbit 1s linear infinite"></div>
+                <div style="position:absolute;inset:0;border-radius:50%;
+                  background:radial-gradient(
+                  circle,rgba(255,255,255,0.3) 0%,transparent 70%);
+                  animation:{$prefix}Glow 2s ease-in-out infinite"></div>
               </div>
-              <div style="font-size:20px;font-weight:700;color:{$color};margin-bottom:6px">{$name}</div>
-              <div style="font-size:13px;color:{$color}80">Loading dashboard…</div>
-              <div style="margin-top:20px;width:200px;height:3px;background:{$color}20;border-radius:3px;overflow:hidden;margin-left:auto;margin-right:auto">
-                <div style="width:40%;height:100%;background:{$grad};border-radius:3px;animation:{$prefix}Progress 1.5s ease-in-out infinite"></div>
+              <div style="font-size:20px;font-weight:700;
+                color:{$color};margin-bottom:6px">{$name}</div>
+              <div style="font-size:13px;
+                color:{$color}80">Loading dashboard…</div>
+              <div style="margin-top:20px;width:200px;height:3px;
+                background:{$color}20;border-radius:3px;
+                overflow:hidden;margin-left:auto;margin-right:auto">
+                <div style="width:40%;height:100%;background:{$grad};
+                  border-radius:3px;
+                  animation:{$prefix}Progress 1.5s ease-in-out infinite">
+                </div>
               </div>
             </div>
           </div>
           <style>
-            @keyframes {$prefix}Float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-6px) scale(1.05)}}
+            @keyframes {$prefix}Float {
+              0%,100%{transform:translateY(0) scale(1)}
+              50%{transform:translateY(-6px) scale(1.05)}
+            }
             @keyframes {$prefix}Orbit{to{transform:rotate(360deg)}}
-            @keyframes {$prefix}Glow{0%,100%{opacity:.5}50%{opacity:1}}
-            @keyframes {$prefix}Progress{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+            @keyframes {$prefix}Glow {
+              0%,100%{opacity:.5}50%{opacity:1}
+            }
+            @keyframes {$prefix}Progress {
+              0%{transform:translateX(-100%)}
+              100%{transform:translateX(350%)}
+            }
             .toplevel_page_{$slug} #wpfooter,
-            .toplevel_page_{$slug} .screen-meta-toggle{display:none!important}
-            .toplevel_page_{$slug} #wpcontent{padding-left:0!important}
+            .toplevel_page_{$slug}
+              .screen-meta-toggle{display:none!important}
+            .toplevel_page_{$slug}
+              #wpcontent{padding-left:0!important}
           </style>
         </div>
         HTML;

@@ -126,9 +126,20 @@ abstract class Controller
 
     // ── Internal Helpers ──────────────────────────────────
 
-    private function addRoute(string $methods, string $path, string $handler, array $args = [], ?string $permission = null): void
-    {
-        $this->routeDefinitions[] = compact('methods', 'path', 'handler', 'args', 'permission');
+    private function addRoute(
+        string $methods,
+        string $path,
+        string $handler,
+        array $args = [],
+        ?string $permission = null
+    ): void {
+        $this->routeDefinitions[] = compact(
+            'methods',
+            'path',
+            'handler',
+            'args',
+            'permission'
+        );
     }
 
     /**
