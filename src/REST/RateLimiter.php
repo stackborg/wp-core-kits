@@ -21,8 +21,6 @@ declare(strict_types=1);
 
 namespace Stackborg\WPCoreKits\REST;
 
-if (!defined('ABSPATH')) exit;
-
 final class RateLimiter
 {
     /**

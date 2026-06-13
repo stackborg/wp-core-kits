@@ -36,7 +36,17 @@ abstract class Controller
     /** Required capability to access these endpoints. */
     protected string $capability = 'manage_options';
 
-    /** @var array<int, array{methods: string, path: string, handler: string, args: array, permission: string|callable|null}> Collected route definitions before registration. */
+    /**
+     * Collected route definitions before registration.
+     *
+     * @var array<int, array{
+     *     methods: string,
+     *     path: string,
+     *     handler: string,
+     *     args: array,
+     *     permission: string|callable|null
+     * }>
+     */
     private array $routeDefinitions = [];
 
     /**
@@ -126,9 +136,20 @@ abstract class Controller
 
     // ── Internal Helpers ──────────────────────────────────
 
-    private function addRoute(string $methods, string $path, string $handler, array $args = [], ?string $permission = null): void
-    {
-        $this->routeDefinitions[] = compact('methods', 'path', 'handler', 'args', 'permission');
+    private function addRoute(
+        string $methods,
+        string $path,
+        string $handler,
+        array $args = [],
+        ?string $permission = null
+    ): void {
+        $this->routeDefinitions[] = compact(
+            'methods',
+            'path',
+            'handler',
+            'args',
+            'permission'
+        );
     }
 
     /**
