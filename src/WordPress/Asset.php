@@ -59,4 +59,25 @@ class Asset implements AssetInterface
     ): void {
         wp_localize_script($handle, $objectName, $data);
     }
+
+    /**
+     * Enqueue a shared font stylesheet that won't be duplicated.
+     *
+     * Uses a common handle prefix so if multiple plugins call this
+     * with the same font name, WordPress only loads it once.
+     *
+     * @param string $name  Font identifier (e.g., 'inter').
+     * @param string $url   Full Google Fonts URL.
+     */
+    public static function sharedFont(string $name, string $url): void
+    {
+        $handle = 'sb-shared-' . sanitize_key($name) . '-fonts';
+
+        // WordPress won't re-register a handle that's already registered
+        if (!wp_style_is($handle, 'registered')) {
+            wp_register_style($handle, esc_url($url), [], null);
+        }
+
+        wp_enqueue_style($handle);
+    }
 }

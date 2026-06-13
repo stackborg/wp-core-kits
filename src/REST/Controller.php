@@ -36,7 +36,7 @@ abstract class Controller
     /** Required capability to access these endpoints. */
     protected string $capability = 'manage_options';
 
-    /** @var array<int, array{methods: string, path: string, handler: string}> Collected route definitions before registration. */
+    /** @var array<int, array{methods: string, path: string, handler: string, args: array, permission: string|callable|null}> Collected route definitions before registration. */
     private array $routeDefinitions = [];
 
     /**
@@ -59,11 +59,18 @@ abstract class Controller
 
         // Register each route with WordPress
         foreach ($this->routeDefinitions as $route) {
-            register_rest_route($this->namespace, $route['path'], [
+            $routeConfig = [
                 'methods'             => $route['methods'],
                 'callback'            => [$this, $route['handler']],
-                'permission_callback' => [$this, 'checkPermission'],
-            ]);
+                'permission_callback' => $this->resolvePermission($route['permission']),
+            ];
+
+            // Add args schema if provided — enables validate/sanitize on input
+            if (!empty($route['args'])) {
+                $routeConfig['args'] = $route['args'];
+            }
+
+            register_rest_route($this->namespace, $route['path'], $routeConfig);
         }
     }
 
@@ -77,28 +84,69 @@ abstract class Controller
 
     // ── Route Registration Helpers ────────────────────────
 
-    protected function get(string $path, string $handler): void
+    protected function get(string $path, string $handler, array $args = []): void
     {
-        $this->addRoute(WP_REST_Server::READABLE, $path, $handler);
+        $this->addRoute(WP_REST_Server::READABLE, $path, $handler, $args);
     }
 
-    protected function post(string $path, string $handler): void
+    protected function post(string $path, string $handler, array $args = []): void
     {
-        $this->addRoute(WP_REST_Server::CREATABLE, $path, $handler);
+        $this->addRoute(WP_REST_Server::CREATABLE, $path, $handler, $args);
     }
 
-    protected function put(string $path, string $handler): void
+    protected function put(string $path, string $handler, array $args = []): void
     {
-        $this->addRoute(WP_REST_Server::EDITABLE, $path, $handler);
+        $this->addRoute(WP_REST_Server::EDITABLE, $path, $handler, $args);
     }
 
-    protected function delete(string $path, string $handler): void
+    protected function delete(string $path, string $handler, array $args = []): void
     {
-        $this->addRoute(WP_REST_Server::DELETABLE, $path, $handler);
+        $this->addRoute(WP_REST_Server::DELETABLE, $path, $handler, $args);
     }
 
-    private function addRoute(string $methods, string $path, string $handler): void
+    // ── Public Route Helpers (no auth required) ────────────
+
+    /**
+     * Register a public GET route — accessible without authentication.
+     * Use with caution and consider adding rate limiting.
+     */
+    protected function publicGet(string $path, string $handler, array $args = []): void
     {
-        $this->routeDefinitions[] = compact('methods', 'path', 'handler');
+        $this->addRoute(WP_REST_Server::READABLE, $path, $handler, $args, 'public');
+    }
+
+    /**
+     * Register a public POST route — accessible without authentication.
+     * Use with caution and consider adding rate limiting.
+     */
+    protected function publicPost(string $path, string $handler, array $args = []): void
+    {
+        $this->addRoute(WP_REST_Server::CREATABLE, $path, $handler, $args, 'public');
+    }
+
+    // ── Internal Helpers ──────────────────────────────────
+
+    private function addRoute(string $methods, string $path, string $handler, array $args = [], ?string $permission = null): void
+    {
+        $this->routeDefinitions[] = compact('methods', 'path', 'handler', 'args', 'permission');
+    }
+
+    /**
+     * Resolve permission callback from the route definition.
+     *
+     * @param string|callable|null $permission  'public' for __return_true, null for default checkPermission.
+     * @return callable
+     */
+    private function resolvePermission(string|callable|null $permission): callable
+    {
+        if ($permission === 'public') {
+            return '__return_true';
+        }
+
+        if (is_callable($permission)) {
+            return $permission;
+        }
+
+        return [$this, 'checkPermission'];
     }
 }

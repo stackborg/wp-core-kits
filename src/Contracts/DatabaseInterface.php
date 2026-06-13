@@ -68,4 +68,35 @@ interface DatabaseInterface
 
     /** Execute a raw query. */
     public static function query(string $query, mixed ...$args): int|bool;
+
+    /**
+     * Prepare a SQL query with placeholders.
+     *
+     * @param string $query  SQL query with %s, %d, %f placeholders.
+     * @param mixed  ...$args Values to substitute.
+     * @return string|null Prepared query string.
+     */
+    public static function prepare(string $query, mixed ...$args): ?string;
+
+    /**
+     * Get the auto-increment ID from the last INSERT.
+     */
+    public static function insertId(): int;
+
+    /**
+     * Get a single column from query results.
+     *
+     * @return array<int, string>
+     */
+    public static function getCol(string $query, mixed ...$args): array;
+
+    /**
+     * Escape a string for use in a LIKE clause.
+     */
+    public static function escLike(string $text): string;
+
+    /**
+     * Get the charset collation string for CREATE TABLE statements.
+     */
+    public static function charsetCollate(): string;
 }
