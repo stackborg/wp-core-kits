@@ -9,6 +9,12 @@
 if (!defined('ARRAY_A')) {
     define('ARRAY_A', 'ARRAY_A');
 }
+if (!defined('ARRAY_N')) {
+    define('ARRAY_N', 'ARRAY_N');
+}
+if (!defined('OBJECT')) {
+    define('OBJECT', 'OBJECT');
+}
 
 // WordPress security keys (used in LicenseGuard::siteKey())
 if (!defined('AUTH_KEY')) {

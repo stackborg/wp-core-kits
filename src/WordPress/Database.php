@@ -66,7 +66,7 @@ class Database implements DatabaseInterface
      * @param mixed  ...$args Variadic args. If the first arg is ARRAY_A, ARRAY_N,
      *                        or OBJECT, it is treated as the output type; remaining
      *                        args are used for prepare(). If omitted, defaults to ARRAY_A.
-     * @return array
+     * @return array<int, array<string, mixed>|object>
      */
     public static function getResults(string $query, mixed ...$args): array
     {

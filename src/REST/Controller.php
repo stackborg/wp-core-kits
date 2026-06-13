@@ -43,7 +43,7 @@ abstract class Controller
      *     methods: string,
      *     path: string,
      *     handler: string,
-     *     args: array,
+     *     args: array<string, mixed>,
      *     permission: string|callable|null
      * }>
      */
@@ -94,21 +94,33 @@ abstract class Controller
 
     // ── Route Registration Helpers ────────────────────────
 
+    /**
+     * @param array<string, mixed> $args
+     */
     protected function get(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::READABLE, $path, $handler, $args);
     }
 
+    /**
+     * @param array<string, mixed> $args
+     */
     protected function post(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::CREATABLE, $path, $handler, $args);
     }
 
+    /**
+     * @param array<string, mixed> $args
+     */
     protected function put(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::EDITABLE, $path, $handler, $args);
     }
 
+    /**
+     * @param array<string, mixed> $args
+     */
     protected function delete(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::DELETABLE, $path, $handler, $args);
@@ -119,6 +131,8 @@ abstract class Controller
     /**
      * Register a public GET route — accessible without authentication.
      * Use with caution and consider adding rate limiting.
+     *
+     * @param array<string, mixed> $args
      */
     protected function publicGet(string $path, string $handler, array $args = []): void
     {
@@ -128,6 +142,8 @@ abstract class Controller
     /**
      * Register a public POST route — accessible without authentication.
      * Use with caution and consider adding rate limiting.
+     *
+     * @param array<string, mixed> $args
      */
     protected function publicPost(string $path, string $handler, array $args = []): void
     {
@@ -136,6 +152,9 @@ abstract class Controller
 
     // ── Internal Helpers ──────────────────────────────────
 
+    /**
+     * @param array<string, mixed> $args
+     */
     private function addRoute(
         string $methods,
         string $path,
@@ -161,7 +180,10 @@ abstract class Controller
     private function resolvePermission(string|callable|null $permission): callable
     {
         if ($permission === 'public') {
-            return '__return_true';
+            // Wrap WP function reference in closure for PHPStan type safety
+            return static function (): bool {
+                return true;
+            };
         }
 
         if (is_callable($permission)) {
