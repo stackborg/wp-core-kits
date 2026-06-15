@@ -357,7 +357,7 @@ if (!function_exists('is_wp_error')) {
 }
 
 if (!function_exists('check_ajax_referer')) {
-    function check_ajax_referer(string $action, string $queryArg = false, bool $die = true): int|false
+    function check_ajax_referer(string $action, string|false $queryArg = false, bool $die = true): int|false
     {
         return 1;
     }
