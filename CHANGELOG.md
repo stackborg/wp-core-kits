@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-06-15
+
+### Added
+
+- **Ajax\Controller**: Declarative AJAX handler base class mirroring REST\Controller pattern — centralizes nonce verification, capability checks, and response formatting
+- **Support\FileSystem**: Shared `removeDirectory()` utility extracted from AddonInstaller/AddonRemover
+- **Contracts\AssetInterface**: Added `sharedFont()` method declaration
+- **Tests**: WP HTTP API stubs (`wp_remote_get`, `wp_remote_request`, `is_wp_error`, `check_ajax_referer`) in bootstrap
+- **Tests**: `ARRAY_N` constant in test bootstrap
+- **Tests**: `AjaxControllerTest` and `FileSystemTest` unit tests
+
+### Changed
+
+- **Addon\AddonInstaller**: Replaced `file_get_contents()` remote download with `wp_remote_get()` — WP.org compliance requirement
+- **Addon\AddonApiClient**: Removed `file_get_contents()` cURL fallback — now uses WordPress HTTP API exclusively
+- **Addon\AddonInstaller**: Delegated `removeDirectory()` to `FileSystem::removeDirectory()`
+- **Addon\AddonRemover**: Delegated `removeDirectory()` to `FileSystem::removeDirectory()`
+
+### Fixed
+
+- **Plugin\AdminDashboardTrait**: Removed Google Fonts CDN dependency — uses system font stack for WP.org GDPR compliance
+
 ## [1.1.2] - 2026-06-14
 
 ### Fixed

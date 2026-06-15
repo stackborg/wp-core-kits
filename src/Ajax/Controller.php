@@ -48,6 +48,9 @@ abstract class Controller
     /** Nonce action name for verification. */
     protected string $nonceAction = '';
 
+    /** Text domain for i18n — subclasses should override with their plugin slug. */
+    protected string $textDomain = 'default';
+
     /** POST/GET field name containing the nonce value. */
     protected string $nonceField = 'nonce';
 
@@ -169,7 +172,7 @@ abstract class Controller
             // Step 2: Check capability (skip for public actions)
             if (!$public && !current_user_can($this->capability)) {
                 $this->error(
-                    esc_html__('You do not have permission to perform this action.', 'stackborg'),
+                    esc_html__('You do not have permission to perform this action.', $this->textDomain),
                     403
                 );
             }

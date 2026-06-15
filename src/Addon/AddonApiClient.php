@@ -93,6 +93,8 @@ class AddonApiClient
     /**
      * Make an HTTP request to the API.
      *
+     * Uses WordPress HTTP API exclusively (required by WP.org guidelines).
+     *
      * @param array<string, mixed>|null $body
      * @return array<string, mixed>|null Decoded JSON response or null on failure
      */
@@ -100,12 +102,7 @@ class AddonApiClient
     {
         $url = rtrim($this->baseUrl, '/') . $path;
 
-        // Use WordPress HTTP API if available, otherwise fall back to curl
-        if (function_exists('wp_remote_request')) {
-            return $this->wpRequest($method, $url, $body);
-        }
-
-        return $this->curlRequest($method, $url, $body);
+        return $this->wpRequest($method, $url, $body);
     }
 
     /**
@@ -140,35 +137,5 @@ class AddonApiClient
 
         return is_array($decoded) ? $decoded : null;
     }
-
-    /**
-     * cURL fallback request (for non-WordPress environments).
-     *
-     * @param array<string, mixed>|null $body
-     * @return array<string, mixed>|null
-     */
-    private function curlRequest(string $method, string $url, ?array $body): ?array
-    {
-        $opts = [
-            'http' => [
-                'method'  => $method,
-                'header'  => "Content-Type: application/json\r\nAccept: application/json\r\n",
-                'timeout' => 30,
-            ],
-        ];
-
-        if ($body !== null) {
-            $opts['http']['content'] = json_encode($body);
-        }
-
-        $context = stream_context_create($opts);
-        $response = @file_get_contents($url, false, $context);
-
-        if ($response === false) {
-            return null;
-        }
-
-        $decoded = json_decode($response, true);
-        return is_array($decoded) ? $decoded : null;
-    }
 }
+

@@ -181,6 +181,9 @@ class AddonInstaller
 
     /**
      * Download a file from URL to temp directory.
+     *
+     * Uses WordPress HTTP API (required by WP.org guidelines)
+     * to properly handle proxies, timeouts, and SSL settings.
      */
     private function download(string $url, ?string $licenseKey = null): ?string
     {
@@ -189,24 +192,24 @@ class AddonInstaller
             return null;
         }
 
-        $context = null;
+        $args = [
+            'timeout'  => 60,
+            'stream'   => true,
+            'filename' => $tmpFile,
+        ];
+
         if ($licenseKey !== null) {
             // Send license key in authorization header for paid addon downloads
-            $context = stream_context_create([
-                'http' => [
-                    'header' => "Authorization: Bearer {$licenseKey}\r\n",
-                    'timeout' => 60,
-                ],
-            ]);
+            $args['headers'] = ['Authorization' => "Bearer {$licenseKey}"];
         }
 
-        $content = @file_get_contents($url, false, $context);
-        if ($content === false) {
+        $response = wp_remote_get($url, $args);
+
+        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
             @unlink($tmpFile);
             return null;
         }
 
-        file_put_contents($tmpFile, $content);
         return $tmpFile;
     }
 

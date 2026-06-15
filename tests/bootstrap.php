@@ -311,6 +311,58 @@ if (!function_exists('rest_url')) {
     }
 }
 
+// ─── WP HTTP API ────────────────────────────────────────
+
+if (!function_exists('wp_remote_get')) {
+    function wp_remote_get(string $url, array $args = []): array
+    {
+        return [
+            'response' => ['code' => 200, 'message' => 'OK'],
+            'body'     => '',
+            'headers'  => [],
+        ];
+    }
+}
+
+if (!function_exists('wp_remote_request')) {
+    function wp_remote_request(string $url, array $args = []): array
+    {
+        return [
+            'response' => ['code' => 200, 'message' => 'OK'],
+            'body'     => '{}',
+            'headers'  => [],
+        ];
+    }
+}
+
+if (!function_exists('wp_remote_retrieve_body')) {
+    function wp_remote_retrieve_body($response): string
+    {
+        return $response['body'] ?? '';
+    }
+}
+
+if (!function_exists('wp_remote_retrieve_response_code')) {
+    function wp_remote_retrieve_response_code($response): int
+    {
+        return $response['response']['code'] ?? 0;
+    }
+}
+
+if (!function_exists('is_wp_error')) {
+    function is_wp_error($thing): bool
+    {
+        return false;
+    }
+}
+
+if (!function_exists('check_ajax_referer')) {
+    function check_ajax_referer(string $action, string $queryArg = false, bool $die = true): int|false
+    {
+        return 1;
+    }
+}
+
 // ─── i18n stubs ─────────────────────────────────────────
 
 if (!function_exists('__')) {
