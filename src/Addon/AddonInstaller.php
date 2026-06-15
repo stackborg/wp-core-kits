@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Stackborg\WPCoreKits\Addon;
 
+use Stackborg\WPCoreKits\Support\FileSystem;
+
 /**
  * AddonInstaller — downloads, verifies, and installs addon modules.
  *
@@ -288,23 +290,6 @@ class AddonInstaller
      */
     public function removeDirectory(string $dir): bool
     {
-        if (!is_dir($dir)) {
-            return false;
-        }
-
-        $items = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST
-        );
-
-        foreach ($items as $item) {
-            if ($item->isDir()) {
-                rmdir($item->getPathname());
-            } else {
-                unlink($item->getPathname());
-            }
-        }
-
-        return rmdir($dir);
+        return FileSystem::removeDirectory($dir);
     }
 }

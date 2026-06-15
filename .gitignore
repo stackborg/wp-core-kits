@@ -1,25 +1,39 @@
-# Dependencies
+# ─── Stackborg wp-core-kits ────────────────────────────────────
+# Composer library — do NOT track lock file or build artifacts
+
+# ── Dependencies ──
 /vendor/
 
-# IDE
+# ── Composer ──
+composer.lock
+composer.phar
+
+# ── IDE / Editor ──
 /.idea/
 /.vscode/
 *.swp
 *.swo
 *~
 
-# OS
+# ── PHP tooling ──
+.phpunit.cache/
+.phpunit.result.cache
+.php-cs-fixer.cache
+
+# ── OS files ──
 .DS_Store
 Thumbs.db
 
-# Testing
-.phpunit.cache/
-.phpunit.result.cache
-coverage/
+# ── Logs ──
+*.log
+npm-debug.log*
 
-# Build
+# ── Build ──
 *.phar
 
-# Environment
+# ── Test coverage ──
+coverage/
+
+# ── Environment ──
 .env
 .env.local

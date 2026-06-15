@@ -23,6 +23,9 @@ if (!defined('ARRAY_A')) {
 if (!defined('OBJECT')) {
     define('OBJECT', 'OBJECT');
 }
+if (!defined('ARRAY_N')) {
+    define('ARRAY_N', 'ARRAY_N');
+}
 
 // ─── Options ────────────────────────────────────────────
 

@@ -100,7 +100,7 @@ trait AdminDashboardTrait
     /**
      * Enqueue admin CSS/JS on the plugin admin page only.
      *
-     * Handles: Google Fonts dedup, cache-busting, React localization,
+     * Handles: cache-busting, React localization,
      * and admin notice suppression for clean SPA UI.
      */
     public function enqueueAdminAssets(string $hook): void
@@ -122,17 +122,11 @@ trait AdminDashboardTrait
             ? (string) filemtime($path . 'assets/css/admin.css')
             : $config['version'];
 
-        // Shared Google Fonts — deduplicates across all Stackborg plugins
-        Asset::sharedFont(
-            'inter',
-            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap'
-        );
-
-        // Dashboard CSS
+        // Dashboard CSS — uses system font stack via CSS tokens (no external font CDN)
         wp_enqueue_style(
             $config['slug'] . '-admin',
             $url . 'assets/css/admin.css',
-            ['sb-shared-inter-fonts'],
+            [],
             $cssVersion
         );
 

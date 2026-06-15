@@ -58,4 +58,12 @@ interface AssetInterface
         string $objectName,
         array $data
     ): void;
+
+    /**
+     * Register a shared font stylesheet (deduplicates across plugins).
+     *
+     * @param string $name Unique font identifier.
+     * @param string $url  Font stylesheet URL.
+     */
+    public static function sharedFont(string $name, string $url): void;
 }

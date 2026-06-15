@@ -1,29 +1,46 @@
 # Distribution ignore — files excluded from published package
 # Used by deployment scripts and build tools
+# Consumers install via Composer, so vendor/ is excluded
 
-# Development files
+# ── Git / GitHub ──
 .git/
 .github/
+.gitignore
+.gitattributes
+.distignore
+
+# ── IDE ──
 .vscode/
 .idea/
-.phpunit.cache/
-node_modules/
 
-# Tests
+# ── Dependencies (consumers install their own) ──
+vendor/
+
+# ── Tests ──
 tests/
 phpunit.xml
-phpstan.neon
+.phpunit.cache/
+.phpunit.result.cache
+coverage/
 
-# Development configs
+# ── Static analysis & linting ──
+phpstan.neon
+phpstan-bootstrap.php
+.phpcs.xml
+
+# ── Development configs ──
 .editorconfig
 .eslintrc*
 .prettierrc*
 
-# Documentation (source only)
+# ── Documentation (dev only) ──
 DEVELOPER_GUIDE.md
 SECURITY.md
 
-# Build artifacts
-.phpunit.result.cache
+# ── Build artifacts & logs ──
 composer.lock
 *.log
+
+# ── Environment ──
+.env
+.env.*

@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Stackborg\WPCoreKits\Addon;
 
 use Stackborg\WPCoreKits\Contracts\AddonInterface;
+use Stackborg\WPCoreKits\Support\FileSystem;
 
 /**
  * AddonRemover — deactivates, cleans up, and removes an addon.
@@ -71,23 +72,6 @@ class AddonRemover
      */
     private function removeDirectory(string $dir): bool
     {
-        if (!is_dir($dir)) {
-            return false;
-        }
-
-        $items = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
-            \RecursiveIteratorIterator::CHILD_FIRST
-        );
-
-        foreach ($items as $item) {
-            if ($item->isDir()) {
-                rmdir($item->getPathname());
-            } else {
-                unlink($item->getPathname());
-            }
-        }
-
-        return rmdir($dir);
+        return FileSystem::removeDirectory($dir);
     }
 }
