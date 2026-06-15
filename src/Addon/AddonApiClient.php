@@ -138,4 +138,3 @@ class AddonApiClient
         return is_array($decoded) ? $decoded : null;
     }
 }
-
