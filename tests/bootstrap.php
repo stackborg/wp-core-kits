@@ -363,6 +363,22 @@ if (!function_exists('check_ajax_referer')) {
     }
 }
 
+// ─── Filesystem ─────────────────────────────────────────
+
+if (!function_exists('wp_mkdir_p')) {
+    /**
+     * Recursive directory creation — mirrors WordPress wp_mkdir_p().
+     * Used by AddonInstaller to create temp extraction directories.
+     */
+    function wp_mkdir_p(string $target): bool
+    {
+        if (is_dir($target)) {
+            return true;
+        }
+        return mkdir($target, 0755, true);
+    }
+}
+
 // ─── i18n stubs ─────────────────────────────────────────
 
 if (!function_exists('__')) {
