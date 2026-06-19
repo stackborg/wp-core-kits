@@ -51,7 +51,17 @@ composer require stackborg/wp-core-kits
 
 ## Usage
 
-See **[DEVELOPER_GUIDE.md](DEVELOPER_GUIDE.md)** for complete API reference and examples.
+See **[DEVELOPER_GUIDE.md](/DEVELOPER_GUIDE.md)** for complete architecture guide and examples.
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [API Reference](docs/api-reference.md) | Complete API docs for all facades, REST layer, and utilities |
+| [Developer Guide](/DEVELOPER_GUIDE.md) | Architecture, patterns, and WP.org submission checklist |
+| [Contributing](CONTRIBUTING.md) | How to contribute to this project |
+| [Changelog](CHANGELOG.md) | Version history |
+| [Security](SECURITY.md) | Security policy and vulnerability reporting |
 
 ## Development
 

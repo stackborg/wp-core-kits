@@ -219,7 +219,7 @@ class AddonInstaller
     private function extractZip(string $zipPath): ?string
     {
         $extractDir = sys_get_temp_dir() . '/sb_addon_extract_' . uniqid();
-        mkdir($extractDir, 0755, true);
+        wp_mkdir_p($extractDir);
 
         $zip = new \ZipArchive();
         if ($zip->open($zipPath) !== true) {
