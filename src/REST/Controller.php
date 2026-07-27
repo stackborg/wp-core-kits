@@ -23,8 +23,8 @@ use WP_REST_Server;
  *   class SettingsController extends Controller {
  *       protected string $namespace = 'sb-mailpress/v1';
  *       public function routes(): void {
- *           $this->get('/settings', 'index');
- *           $this->post('/settings', 'update');
+ *           $this->routeGet('/settings', 'index');
+ *           $this->routePost('/settings', 'update');
  *       }
  *   }
  */
@@ -93,11 +93,20 @@ abstract class Controller
     }
 
     // ── Route Registration Helpers ────────────────────────
+    //
+    // Named routeGet()/routePost()/routePut()/routeDelete() rather than the
+    // obvious get()/post()/put()/delete(). A REST controller's most natural
+    // handler names are exactly those words — `delete()` for DELETE, `get()`
+    // for GET — and PHP requires an overriding method to match the parent's
+    // signature. With the short names a controller could not declare a
+    // handler called delete() at all; it fatals at class-load time with
+    // "Declaration ... must be compatible with". Eleven controllers across
+    // this ecosystem hit exactly that.
 
     /**
      * @param array<string, mixed> $args
      */
-    protected function get(string $path, string $handler, array $args = []): void
+    protected function routeGet(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::READABLE, $path, $handler, $args);
     }
@@ -105,7 +114,7 @@ abstract class Controller
     /**
      * @param array<string, mixed> $args
      */
-    protected function post(string $path, string $handler, array $args = []): void
+    protected function routePost(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::CREATABLE, $path, $handler, $args);
     }
@@ -113,7 +122,7 @@ abstract class Controller
     /**
      * @param array<string, mixed> $args
      */
-    protected function put(string $path, string $handler, array $args = []): void
+    protected function routePut(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::EDITABLE, $path, $handler, $args);
     }
@@ -121,7 +130,7 @@ abstract class Controller
     /**
      * @param array<string, mixed> $args
      */
-    protected function delete(string $path, string $handler, array $args = []): void
+    protected function routeDelete(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::DELETABLE, $path, $handler, $args);
     }
@@ -134,7 +143,7 @@ abstract class Controller
      *
      * @param array<string, mixed> $args
      */
-    protected function publicGet(string $path, string $handler, array $args = []): void
+    protected function publicRouteGet(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::READABLE, $path, $handler, $args, 'public');
     }
@@ -145,7 +154,7 @@ abstract class Controller
      *
      * @param array<string, mixed> $args
      */
-    protected function publicPost(string $path, string $handler, array $args = []): void
+    protected function publicRoutePost(string $path, string $handler, array $args = []): void
     {
         $this->addRoute(WP_REST_Server::CREATABLE, $path, $handler, $args, 'public');
     }

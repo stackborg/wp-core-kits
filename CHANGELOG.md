@@ -5,7 +5,99 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - 2026-06-15
+## [Unreleased] — next release is 2.0.0
+
+The rename below removes methods that subclasses call, so under SemVer this is
+a major bump. An earlier note in this file suggested 1.2.0; that is wrong on
+two counts — a breaking change cannot ship as a minor, and 1.2.0 was already
+claimed by a section of this changelog that in fact shipped as v1.1.3–v1.1.7
+(see below).
+
+### Changed — BREAKING
+
+- **REST\Controller**: route-registration helpers renamed
+  `get()/post()/put()/delete()` → `routeGet()/routePost()/routePut()/routeDelete()`,
+  and `publicGet()/publicPost()` → `publicRouteGet()/publicRoutePost()`.
+
+  The short names collided with the most natural REST *handler* names. PHP
+  requires an overriding method to match its parent's signature, so a
+  controller could not declare `public function delete(WP_REST_Request $r)` at
+  all — it fataled at class-load with "Declaration ... must be compatible
+  with". Eleven controllers across the sb-* plugins hit exactly that
+  (`delete()` in eight, `get()` in three), which blocked adoption of the base
+  class entirely.
+
+  Consumers upgrading must rewrite their `routes()` bodies. Handler method
+  names are unaffected — routes reference them by string.
+
+### Added
+
+- **Privacy\PersonalDataHandler**: base for WordPress personal-data exporters
+  and erasers. Three plugins had the same four methods copy-pasted into their
+  Plugin class, and both defects came along with every copy:
+
+  - the query used `LIMIT 100` while the response always reported
+    `'done' => true`, so a data subject with more than 100 rows silently
+    received a truncated export — WordPress passes `$page` for exactly this
+    and it was ignored
+  - the eraser could not distinguish "deleted nothing" from "query failed",
+    so a failed erasure was reported as a successful one
+
+  Subclasses declare slug, label, table and the field mapping; batching, the
+  response envelope and the registration shape live in the base.
+
+- **Database::usersTable()**: returns `$wpdb->users`. On multisite the users
+  table is shared network-wide and carries no per-site prefix, so
+  `table('users')` produces a name that does not exist. `wpdb()` is private,
+  so consumers previously had no way to reach it.
+
+### Fixed
+
+- **build**: `npm run build` copied only `styles/index.css` into `lib/`, but
+  that file `@import`s `./tokens.css` and `./reset.css`, and the component
+  stylesheets (`DashboardShell.css`, `DataTable.css`, `PageHeader.css`) sit
+  beside their components. The published `@stackborg/wp-ui-kits/styles` export
+  therefore never resolved for consumers. All CSS is now copied with its
+  directory structure preserved.
+
+- **Database::getRow()**: return type widened `?array` → `array|object|null`.
+
+  The method accepts an output type as its first variadic argument — the same
+  contract as `getResults()` — but declared `?array`, so the documented call
+  `getRow($sql, OBJECT, $id)` returned a `stdClass` from a method typed
+  `?array` and raised a TypeError. Three call sites in sb-woopress had written
+  exactly that call and fataled on gift-card redemption and cart recovery. The
+  narrow type was the defect, not the callers.
+
+## [1.1.7] - 2026-06-20
+
+### Fixed
+
+- **Tests**: added a `wp_mkdir_p` mock to the test bootstrap so the suite runs on CI
+
+## [1.1.6] - 2026-06-20
+
+### Added
+
+- **Addon\AddonInstaller**: installer improvements, accompanying unit tests, documentation and community files
+
+## [1.1.5] - 2026-06-16
+
+Tagged at the same commit as v1.1.4; no code difference between the two.
+
+## [1.1.4] - 2026-06-16
+
+### Fixed
+
+- **Tests**: `check_ajax_referer` stub typed `string|false` for its `queryArg` parameter
+- **Addon\AddonApiClient**: removed a stray trailing newline (PSR-2)
+- **Ajax**: resolved a PSR-12 PHPCS violation in `index.php`
+
+## [1.1.3] - 2026-06-16
+
+Previously published in this file as "[1.2.0] - 2026-06-15", a version that was
+never tagged. The work below shipped as v1.1.3; the corrections that followed
+are listed under v1.1.4 and v1.1.6, which this file had omitted entirely.
 
 ### Added
 

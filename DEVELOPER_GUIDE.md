@@ -150,9 +150,9 @@ class SettingsController extends Controller
 
     public function routes(): void
     {
-        $this->get('/settings', 'index');
-        $this->post('/settings', 'store');
-        $this->delete('/settings/(?P<key>[\\w]+)', 'destroy');
+        $this->routeGet('/settings', 'index');
+        $this->routePost('/settings', 'store');
+        $this->routeDelete('/settings/(?P<key>[\\w]+)', 'destroy');
     }
 
     public function index(): \WP_REST_Response

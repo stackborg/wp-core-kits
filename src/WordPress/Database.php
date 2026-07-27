@@ -86,13 +86,20 @@ class Database implements DatabaseInterface
     /**
      * Get a single row as an associative array by default.
      *
+     * The return type has to admit `object`, because the output type is a
+     * caller-supplied argument. It was declared `?array` while OBJECT was an
+     * accepted input, so `getRow($sql, OBJECT, $id)` — a call the signature
+     * invites — raised a TypeError instead of returning a row. That combination
+     * shipped in three call sites before it was found; the narrow type was the
+     * bug, not the callers.
+     *
      * @param string $query   SQL query string.
      * @param mixed  ...$args Variadic args. If the first arg is ARRAY_A, ARRAY_N,
      *                        or OBJECT, it is treated as the output type; remaining
      *                        args are used for prepare(). If omitted, defaults to ARRAY_A.
-     * @return array<string, mixed>|null
+     * @return array<string, mixed>|object|null
      */
-    public static function getRow(string $query, mixed ...$args): ?array
+    public static function getRow(string $query, mixed ...$args): array|object|null
     {
         $outputType = ARRAY_A;
         $prepArgs = $args;
@@ -105,6 +112,18 @@ class Database implements DatabaseInterface
 
         $prepared = empty($prepArgs) ? $query : self::wpdb()->prepare($query, ...$prepArgs);
         return self::wpdb()->get_row($prepared, $outputType);
+    }
+
+    /**
+     * The users table name.
+     *
+     * Not `table('users')`: on multisite the users table is shared across the
+     * network and does not carry the per-site prefix, so only $wpdb knows the
+     * correct name.
+     */
+    public static function usersTable(): string
+    {
+        return self::wpdb()->users;
     }
 
     public static function insert(string $table, array $data): int|false
