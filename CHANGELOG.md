@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] — next release is 2.0.0
+## [2.0.0] - 2026-08-05
 
 The rename below removes methods that subclasses call, so under SemVer this is
 a major bump. An earlier note in this file suggested 1.2.0; that is wrong on
@@ -28,7 +28,8 @@ claimed by a section of this changelog that in fact shipped as v1.1.3–v1.1.7
   class entirely.
 
   Consumers upgrading must rewrite their `routes()` bodies. Handler method
-  names are unaffected — routes reference them by string.
+  names are unaffected — routes reference them by string. This package's own
+  `Addon\\AddonController` was updated with them.
 
 ### Added
 
@@ -60,7 +61,10 @@ claimed by a section of this changelog that in fact shipped as v1.1.3–v1.1.7
   therefore never resolved for consumers. All CSS is now copied with its
   directory structure preserved.
 
-- **Database::getRow()**: return type widened `?array` → `array|object|null`.
+- **Database::getRow()**: return type widened `?array` → `array|object|null`,
+  on both the implementation and `Contracts\\DatabaseInterface`. PHP requires
+  return types to be covariant, so widening only the implementation is a fatal
+  error at class load — widening both is the whole fix.
 
   The method accepts an output type as its first variadic argument — the same
   contract as `getResults()` — but declared `?array`, so the documented call
