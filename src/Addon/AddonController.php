@@ -40,15 +40,15 @@ class AddonController extends Controller
 
     public function routes(): void
     {
-        $this->get('/addons', 'index');
-        $this->post('/addons/(?P<slug>[a-z0-9-]+)/install', 'install');
-        $this->delete('/addons/(?P<slug>[a-z0-9-]+)', 'uninstall');
-        $this->post('/addons/(?P<slug>[a-z0-9-]+)/activate', 'activate');
-        $this->post('/addons/(?P<slug>[a-z0-9-]+)/deactivate', 'deactivate');
-        $this->post('/addons/(?P<slug>[a-z0-9-]+)/license', 'activateLicense');
-        $this->delete('/addons/(?P<slug>[a-z0-9-]+)/license', 'deactivateLicense');
-        $this->post('/addons/(?P<slug>[a-z0-9-]+)/update', 'update');
-        $this->post('/addons/batch-update', 'batchUpdate');
+        $this->routeGet('/addons', 'index');
+        $this->routePost('/addons/(?P<slug>[a-z0-9-]+)/install', 'install');
+        $this->routeDelete('/addons/(?P<slug>[a-z0-9-]+)', 'uninstall');
+        $this->routePost('/addons/(?P<slug>[a-z0-9-]+)/activate', 'activate');
+        $this->routePost('/addons/(?P<slug>[a-z0-9-]+)/deactivate', 'deactivate');
+        $this->routePost('/addons/(?P<slug>[a-z0-9-]+)/license', 'activateLicense');
+        $this->routeDelete('/addons/(?P<slug>[a-z0-9-]+)/license', 'deactivateLicense');
+        $this->routePost('/addons/(?P<slug>[a-z0-9-]+)/update', 'update');
+        $this->routePost('/addons/batch-update', 'batchUpdate');
     }
 
     /**

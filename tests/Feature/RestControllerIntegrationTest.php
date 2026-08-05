@@ -17,9 +17,9 @@ class TestSettingsController extends Controller
 
     public function routes(): void
     {
-        $this->get('/settings', 'index');
-        $this->post('/settings', 'store');
-        $this->delete('/settings/(?P<id>[\\d]+)', 'destroy');
+        $this->routeGet('/settings', 'index');
+        $this->routePost('/settings', 'store');
+        $this->routeDelete('/settings/(?P<id>[\\d]+)', 'destroy');
     }
 
     public function index(): \WP_REST_Response

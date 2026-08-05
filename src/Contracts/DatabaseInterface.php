@@ -34,9 +34,15 @@ interface DatabaseInterface
     /**
      * Get a single row from the database.
      *
-     * @return array<string, mixed>|null
+     * The return type has to admit `object`, because the output type is a
+     * caller-supplied argument: passing OBJECT is part of this contract, and a
+     * `?array` return made that call a TypeError. PHP requires return types to
+     * be covariant, so widening the implementation alone is a fatal error —
+     * the interface has to widen with it.
+     *
+     * @return array<string, mixed>|object|null
      */
-    public static function getRow(string $query, mixed ...$args): ?array;
+    public static function getRow(string $query, mixed ...$args): array|object|null;
 
     /**
      * Insert a row into a table.
