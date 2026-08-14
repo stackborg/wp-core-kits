@@ -89,10 +89,39 @@ trait AdminDashboardTrait
     }
 
     /**
-     * Render the React root container with animated preloader.
+     * Render the React root container and whatever stands in it until the
+     * dashboard mounts.
+     *
+     * A plugin can supply its own placeholder through `preloader` in
+     * adminConfig() — a callable that echoes, or a string of markup. That
+     * exists because the generic one below is a *second* loading state: the
+     * dashboard paints its own the moment React commits, so a plugin whose
+     * loader looks nothing like this one shows the reader two in a row.
+     * Passing markup that matches makes the handover invisible.
+     *
+     * Anything the plugin returns is echoed as-is. It is the plugin's own
+     * markup, not user input, and it is the plugin's job to escape whatever
+     * it interpolates — the same contract as any other template callback.
      */
     public function renderAdminPage(): void
     {
+        $config    = $this->adminConfig();
+        $slug      = esc_attr($config['slug']);
+        $preloader = $config['preloader'] ?? null;
+
+        if (is_callable($preloader)) {
+            echo '<div id="' . $slug . '-root">';
+            $preloader();
+            echo '</div>';
+            return;
+        }
+
+        if (is_string($preloader) && $preloader !== '') {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- plugin-authored markup, escaped by its author
+            echo '<div id="' . $slug . '-root">' . $preloader . '</div>';
+            return;
+        }
+
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- 100% static HTML, no user data
         echo $this->buildPreloaderHtml();
     }

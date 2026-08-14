@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-08-14
+
+### Added
+
+- **`preloader` in `adminConfig()`** — a callable or a string of markup that
+  replaces the generic placeholder `renderAdminPage()` prints into the React
+  root. Nothing changes for a plugin that does not set it.
+
+  It exists because the generic preloader is a *second* loading state: a
+  dashboard paints its own the moment React commits, so unless the two look
+  alike the reader sees two different loaders in a row. A plugin that passes
+  the markup its dashboard renders makes the handover invisible.
+
+  Pairs with `@stackborg/wp-ui-kits` 1.1.2, which stopped blanking the root
+  between the two.
+
 ## [2.0.0] - 2026-08-05
 
 The rename below removes methods that subclasses call, so under SemVer this is

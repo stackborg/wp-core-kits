@@ -296,8 +296,25 @@ IP-based rate limiting for REST endpoints.
 |--------|-------------|
 | `adminConfig()` | Abstract — return dashboard config array |
 | `registerAdminMenu()` | Add admin menu page |
-| `renderAdminPage()` | Render React mount point |
+| `renderAdminPage()` | Render React mount point, with the placeholder that stands in it |
 | `enqueueAdminAssets()` | Load React dashboard JS/CSS |
+
+**`adminConfig()['preloader']`** — optional. A callable that echoes, or a
+string of markup, printed inside the React root instead of the generic
+spinner. Give it the markup your dashboard's own loading state renders: the
+dashboard replaces the placeholder the moment React commits, and two loaders
+that look different read as the plugin starting twice.
+
+```php
+'preloader' => function (): void {
+    ?>
+    <div class="my-load" role="status" aria-label="Loading">…</div>
+    <?php
+},
+```
+
+Whatever you return is echoed as-is — it is your markup, so escape whatever
+you interpolate into it.
 
 ### ProviderRegistry (`Stackborg\WPCoreKits\Plugin\ProviderRegistry`)
 
